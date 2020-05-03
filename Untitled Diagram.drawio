@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-05-03T20:54:09.264Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36" etag="kUk3fS2HfOApJQh0lPqA" version="12.9.13" type="github">
+<mxfile host="app.diagrams.net" modified="2020-05-03T20:55:31.662Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36" etag="YIKmIya2YuoERGyVzpyQ" version="12.9.13" type="github">
   <diagram id="Y9gekggCoo7oQ8FMOKqc" name="Page-1">
-    <mxGraphModel dx="2532" dy="1340" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
+    <mxGraphModel dx="1266" dy="670" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -57,7 +57,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="ekrngiIVuQT2fDylJq5U-79" value="" style="group" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="90" y="490" width="1390" height="451" as="geometry" />
+          <mxGeometry x="40" y="505" width="1390" height="451" as="geometry" />
         </mxCell>
         <mxCell id="ekrngiIVuQT2fDylJq5U-27" value="" style="pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#505050;shape=mxgraph.mscae.intune.account_portal" vertex="1" parent="ekrngiIVuQT2fDylJq5U-79">
           <mxGeometry x="50" y="80" width="120" height="120" as="geometry" />
@@ -204,9 +204,6 @@
         </mxCell>
         <mxCell id="ekrngiIVuQT2fDylJq5U-145" value="&lt;div&gt;&lt;font face=&quot;helvetica&quot;&gt;&lt;span style=&quot;font-size: 21px&quot;&gt;&lt;b&gt;List of&amp;nbsp; all conferences&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;helvetica&quot;&gt;&lt;span style=&quot;font-size: 21px&quot;&gt;&lt;b&gt;that he can join&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="ekrngiIVuQT2fDylJq5U-80">
           <mxGeometry x="244" y="230" width="260" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="ekrngiIVuQT2fDylJq5U-193" value="Text" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="ekrngiIVuQT2fDylJq5U-80">
-          <mxGeometry x="954" y="316" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="ekrngiIVuQT2fDylJq5U-111" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="110" y="1000" width="1390" height="451" as="geometry" />
