@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h2>Welcome to your new conference page!</h2>
+	<form action="">
+		<input type="submit" value="Edit your new page">
+	</form>
+	<br>
+	<br>
+	<form action="C:\Users\Andrei\Desktop\issshit\GUI\logged\chair\loggedchair.htm">
+		<input type="submit" value="Go back">
+	</form>
+</body>
+</html>

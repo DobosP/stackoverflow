@@ -1,0 +1,45 @@
+﻿.dropbtn
+{
+	background-color: blue;
+	color: white;
+	border: none;
+	outline: none;
+	padding: 14px 32px;
+	border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-contents
+{
+	display: block;
+}
+
+.dropdown
+{
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-contents
+{
+	display: none;
+	position: absolute;
+	z-index: 1;
+	background-color: white;
+}
+
+.dropdown-contents a
+{
+	display: block;
+}
+
+.specific-content
+{
+	background-color: white;
+	text-decoration: none;
+	font-family: sans-serif;
+}
+
+.specific-content:hover
+{
+	background-color: grey;
+}

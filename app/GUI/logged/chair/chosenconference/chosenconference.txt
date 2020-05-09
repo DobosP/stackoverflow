@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h2>Below are details concerning your selected conference, and proposals submitted to it.</h2>
+	<label>Name: </label>
+	<label id="chairconferencename">default</label>
+	<br>
+	<label>Topics: </label>
+	<label id="chairconferencetopics">default</label>
+	<br>
+	<label>Speakers: </label>
+	<label id="chairconferencespeakers">default</label>
+	<br>
+	<br>
+	<form action="">
+		<label for="chairproposals">List of proposals: </label>
+		<select id="chairproposallist" name="chairproposallist">
+			<option value="test">Test</option>
+		</select>
+		<input type="submit" value="See proposal options">
+	</form>
+</body>
+</html>
