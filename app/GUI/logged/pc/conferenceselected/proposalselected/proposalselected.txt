@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-<html>
-<body>
-	<h2>Below are options to review the current proposal, see other PC members' reviews and download proposal files.</h2>
-	<form action="../conferenceselected.htm">
-		<input type="submit" value="Go back">
-	</form>
-</body>
-</html>

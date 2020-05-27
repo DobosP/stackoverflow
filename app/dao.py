@@ -1,31 +1,29 @@
-import pymysql
-from db_config import mysql
-from werkzeug.security import check_password_hash, check_password_hash
+import pyodbc
+from db_config import establish_db_con
+# from werkzeug.security import check_password_hash, generate_password_hash
 import logging
+import random
+from datetime import datetime
 
-def login(email, pwd):
+
+def login(username, pwd):
 	
 	conn = None;
 	cursor = None;
-	
-	
 	try:
 
 
-		conn = mysql.connect()
-		cursor = conn.cursor()
-		logging.warning('Watch out!')  # will print a message to the console
+		conn, cursor = establish_db_con() 
 
-		sql = "SELECT Email, Password FROM User WHERE Email=%s"
-		sql_where = (email,)
-		logging.warning('Watch out!')  # will print a message to the console
+		sql = "SELECT Username, Password FROM [User] WHERE Username=?"
+		sql_where = (username)
 
 		cursor.execute(sql, sql_where)
 		row = cursor.fetchone()
-		logging.warning('Watch out!')  # will print a message to the console
 
 		if row:
-			if check_password_hash(row[1], pwd):
+			# if check_password_hash(row[1], pwd):
+			if row[1] == pwd:
 				return row[0]
 
 		return None
@@ -38,16 +36,15 @@ def login(email, pwd):
 			cursor.close()
 			conn.close()
 
-def user_exist(email):
+def user_exist(email,username):
 	conn = None;
 	cursor = None;
 	
 	try:
-		conn = mysql.connect()
-		cursor = conn.cursor()
+		conn, cursor = establish_db_con() 
 		
-		sql = "SELECT Email FROM User WHERE Email=%s"
-		sql_where = (email,)
+		sql = "SELECT Email FROM [User] WHERE Email=? or Username=?"
+		sql_where = (email,username)
 		
 		cursor.execute(sql, sql_where)
 		row = cursor.fetchone()
@@ -64,19 +61,67 @@ def user_exist(email):
 			cursor.close()
 			conn.close()
 
-def register(email, name, pwd):
+def register(email, name, pwd, affiliation):
 	conn = None;
 	cursor = None;
 	
 	try:
-		conn = mysql.connect()
-		cursor = conn.cursor()
+		conn, cursor = establish_db_con() 
 		
-		sql = "INSERT INTO User(Username, Email, Password) VALUES(%s, %s, %s)"
-		data = (name, email, generate_password_hash(pwd),)
-		
+		sql = "INSERT INTO [User] (Username, Email, Password) VALUES(?, ?, ?)"
+		# data = (name, email, generate_password_hash(pwd)[:50])
+		data = (name,email,pwd)
 		cursor.execute(sql, data)
 		
+		conn.commit()
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+
+def getconferences():
+	conn = None;
+	cursor = None;
+	
+	try:
+
+		conn, cursor = establish_db_con() 
+
+		sql = "SELECT Interval FROM [Event]"
+		sql_where = ()
+
+		cursor.execute(sql, sql_where)
+		row = cursor.fetchone()
+
+		return row
+		
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+def createconf(json):
+	conn = None;
+	cursor = None;
+	
+	try:
+		conn, cursor = establish_db_con() 
+		random.seed(datetime.now())
+		sql = "INSERT INTO [Event] (EventID,Interval) VALUES(?,?)"
+		# data = (name, email, generate_password_hash(pwd)[:50])
+		data = (random.randint(1,100),json['conferencename'])
+		cursor.execute(sql, data)
+
 		conn.commit()
 
 	except Exception as e:

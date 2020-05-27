@@ -1,12 +1,16 @@
-from app import app
-from flaskext.mysql import MySQL
+import pyodbc
 
-mysql = MySQL()
- 
-# MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'sa'
-app.config['MYSQL_DATABASE_PASSWORD'] = '<YourStrong@Passw0rd>'
-app.config['MYSQL_DATABASE_DB'] = 'CMS2'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-app.config['MYSQL_DATABASE_PORT'] = 1433
-mysql.init_app(app)
+server = 'localhost'
+database = 'CMS2'
+username = 'sa'
+password = 'password'
+driver = '{ODBC Driver 17 for SQL Server}'
+
+connectionstring = f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}'
+
+def establish_db_con():
+
+    sql_con = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+    cursor = sql_con.cursor()
+   
+    return sql_con, cursor

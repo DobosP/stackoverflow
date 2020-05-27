@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+	<h2>Below are some details of your proposal, as well as options to edit it.</h2>
+	<label>Title:</label>
+	<label id="proposaltitle">default</label>
+	<br>
+	<label>Topic:</label>
+	<label id="proposaltopic">default</label>
+	<br>
+	<label>Authors:</label>
+	<label id="proposalauthors">default</label>
+	<br>
+	<p>Form to update meta-information for a paper</p>
+	<form>
+		<label for="updatepapertitle">New name: </label>
+		<input type="text" id="updatepapername" name="updatepapername">
+		<br>
+		<label for="updatepapertopic">New topics: </label>
+		<input type="text" id="updatepapertopic" name="updatepapertopic">
+		<br>
+		<label for="updatepaperauthors">New authors: </label>
+		<input type="text" id="updatepaperauthors" name="updatepaperauthors">
+		<br>
+		<button id="updatepaper">Update paper</button>
+	</form>
+	<br>
+	<p>Form to update meta-information for an abstract</p>
+	<form>
+		<label for="updatepapertitle">New title: </label>
+		<input type="text" id="updateabstracttitle" name="updateabstracttitle">
+		<br>
+		<label for="updatepapertopic">New name: </label>
+		<input type="text" id="updateabstractname" name="updateabstractname">
+		<br>
+		<label for="updatepaperauthors">New purpose: </label>
+		<input type="text" id="updateabstractpurpose" name="updateabstractpurpose">
+		<br>
+		<label for="updatepaperauthors">New methods: </label>
+		<input type="text" id="updateabstractmethods" name="updateabstractmethods">
+		<br>
+		<button id="updateabstract">Update abstract</button>
+	</form>
+	<br>
+	<p>Recommendations from reviewers</p>
+	<ul id="listofrecommendations">
+		<li>Test</li>
+	</ul>
+	<br>
+	<button id="addPDF">Upload a PDF</button>
+	<button id="addPPT">Upload a PPT</button>
+	<br>
+	<br>
+	<form action="../loggedauthor.htm">
+		<input type="submit" value="Go back">
+	</form>
+</body>
+</html>

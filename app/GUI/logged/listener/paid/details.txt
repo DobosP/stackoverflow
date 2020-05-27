@@ -1,7 +1,0 @@
-<!DOCTYPE html>
-<html>
-<body>
-	<h2>Below are details for your selected presentation.</h2>
-	<label>Title: </label>
-</body>
-</html>
