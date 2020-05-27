@@ -1,0 +1,6 @@
+flask
+pyodbc
+logging
+json
+logging
+dotenv
