@@ -32,6 +32,50 @@ def editconf_page():
 def pcmember_page():
 	return render_template("logged/pc/loggedpc.htm")
 
+@app.route("/pcmember/selectedconf")
+def pcmember_selectedconf_page():
+	return render_template("logged/pc/conferenceselected/conferenceselected.htm")
+
+@app.route("/pcmember/selectedprop")
+def pcmember_selectedprop_page():
+	return render_template("logged/pc/conferenceselected/proposalselected/proposalselected.htm")
+
+#author
+@app.route("/author")
+def author_page():
+	return render_template("logged/author/loggedauthor.htm")
+
+@app.route("/author/acceptedconf")
+def author_acceptedconf_page():
+	return render_template("logged/author/conferences_accepted/conferences_accepted.htm")
+
+@app.route("/author/submitpaper")
+def author_submitpaper_page():
+	return render_template("logged/author/submit_paper/submitpaper.htm")
+
+#listener
+@app.route("/listener")
+def listener_page():
+	return render_template("logged/listener/loggedlistener.htm")
+
+@app.route("/listener/details")
+def listener_details_page():
+	return render_template("logged/listener/paid/details.htm")
+
+@app.route("/listener/paid")
+def listener_paid_page():
+	return render_template("logged/listener/paid/paid.htm")
+
+@app.route("/listener/details_selected")
+def listener_detailsselected_page():
+	return render_template("logged/listener/paid/detailsselected/detailsselected.htm")
+
+@app.route("/listener/paid_selected")
+def listener_paidselected_page():
+	return render_template("logged/listener/paid/paidselected/paidselected.htm")
+
+
+
 @app.route('/signup/page')
 def sign_up_page():
 	return render_template('signup.htm')

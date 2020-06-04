@@ -1,7 +1,7 @@
 import pyodbc
 
 server = 'localhost'
-database = 'CMS2'
+database = 'CMS4'
 username = 'sa'
 password = 'password'
 driver = '{ODBC Driver 17 for SQL Server}'
