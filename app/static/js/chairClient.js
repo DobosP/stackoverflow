@@ -1,39 +1,31 @@
 $(document).ready(function() {
-    $.ajax({
-        method: "GET",
-        url: '/getconferences',
-        contentType: 'application/json;charset=UTF-8',
-        
-        dataType: "json",
-        success: function(data) {
-            console.log(data['message'])
-        },
-        statusCode: {
-            400: function() {
-                $('#msg').html('<span style="color: red;">Bad request - invalid credentials</span>');
-            }
-        },
-        error: function(err) {
-            console.log(err);
-        }
-    });
+   
     var isLoggedIn = localStorage.getItem('loggedin');
-        
-    // if(isLoggedIn != 1) {
-    //     $("body").hide();
-    // }
-    var userName = localStorage.getItem('userName');
+    var username = localStorage.getItem('username');
+    var loginas = localStorage.getItem('loginas');
 
-    $('#userName').text(userName);
+    $('#userName').text(username);
 
     $.ajax({
         method: "GET",
         url: '/getconferences',
-        contentType: 'application/json;charset=UTF-8',
+    
+        data: {
+            'username':username,
+            'loginas': loginas
+        },
         
-        dataType: "json",
         success: function(data) {
             console.log(data)
+            let dropdown = $('#chairconferencelist');
+
+            dropdown.empty();
+
+            dropdown.append('<option selected="true" disabled>Choose Conference</option>');
+            dropdown.prop('selectedIndex', 0);
+            $.each(data, function (key, entry) {
+            dropdown.append($('<option></option>').attr('value', entry.EventID).text(entry.Name));
+           });
         },
         statusCode: {
             400: function() {
@@ -45,18 +37,11 @@ $(document).ready(function() {
         }
     });
 
-    $('#logOutButt').on('click', function(e) {
-    e.preventDefault();
-        localStorage.setItem('loggedin', 0);
-        localStorage.setItem('userName', '');
-        var url = "http://localhost:8080";
-        $(location).attr('href',url);
-
-    });
     $('#logOutButt').on('click', function(e) {
         e.preventDefault();
             localStorage.setItem('loggedin', 0);
             localStorage.setItem('userName', '');
+            localStorage.setItem('logedinas', '');
             var url = "http://localhost:8080";
             $(location).attr('href',url);
     
@@ -96,8 +81,7 @@ $(document).ready(function() {
        
 				}),
 				dataType: "json",
-				success: function(data) {
-				
+				success: function(data) {				
 					var url = "http://localhost:8080/chair";
 					$(location).attr('href',url);
 			
@@ -116,8 +100,6 @@ $(document).ready(function() {
 			$('#msg').html('<span style="color: red;">Invalid username and password</span>');
 		}
 	});            
-
-    
 
         
 });

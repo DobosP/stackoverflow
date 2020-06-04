@@ -22,8 +22,8 @@ $(document).ready(function() {
 				dataType: "json",
 				success: function(data) {
 					localStorage.setItem('loggedin', 1);
-					localStorage.setItem('userName', username);
-
+					localStorage.setItem('username', username);
+					localStorage.setItem('loginas', loginas);
 					var url = "http://localhost:8080/" + loginas;
 					$(location).attr('href',url);
 			

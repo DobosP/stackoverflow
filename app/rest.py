@@ -71,13 +71,21 @@ def login():
 
 @app.route('/getconferences', methods=['GET'])
 def getconferences():
+	get_data = {
+		"username": request.args.get('username'),
+		"loginas":  request.args.get('loginas')
+		}
+	data = dao.getconferences(get_data)
+	events = []
+	for event in data:
+		events.append({
+		"EventID": event[0],
+		"Name": event[1]
+		})
+	resp = jsonify(events)
+	resp.status_code = 200
 
-	data = dao.getconferences()
-
-	warning(data)
-		
-	# session['username'] = user
-	return jsonify({'message' : f'User logged in successfully'})
+	return resp
 
 
 	

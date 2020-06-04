@@ -3,9 +3,8 @@ from db_config import establish_db_con
 # from werkzeug.security import check_password_hash, generate_password_hash
 import logging
 import random
-from datetime import datetime
-
-
+from dao_helper import *
+from db_config import *
 def login(username, pwd):
 	
 	conn = None;
@@ -85,20 +84,26 @@ def register(email, name, pwd, affiliation):
 
 
 
-def getconferences():
+def getconferences(json):
 	conn = None;
 	cursor = None;
 	
 	try:
+		Username = json['username']
+		Type = json['loginas']
 
 		conn, cursor = establish_db_con() 
 
-		sql = "SELECT Interval FROM [Event]"
-		sql_where = ()
+		sql = """SELECT Event.EventID, [Name] FROM [Event]
+				INNER JOIN Participates
+				On Event.EventID = Participates.EventID AND 
+				Participates.Username = ? AND Participates.Type = ?
+				"""
+		data = (Username,Type)
 
-		cursor.execute(sql, sql_where)
-		row = cursor.fetchone()
-
+		cursor.execute(sql, data)
+		row = cursor.fetchall()
+		conn.commit()
 		return row
 		
 
@@ -115,12 +120,38 @@ def createconf(json):
 	cursor = None;
 	
 	try:
+		#deadline
+		ProposalDeadline = json['conferencecall']
+		AbstractDeadline = json['conferencedeadlines']
+		#event
+		Name = json['conferencename']
+		Interval = json['conferencetime']
+		PcMembers = json['conferencepc']
+		Section = json['conferencesections']
+		#username
+		Username = json['chair']
+
 		conn, cursor = establish_db_con() 
-		random.seed(datetime.now())
-		sql = "INSERT INTO [Event] (EventID,Interval) VALUES(?,?)"
-		# data = (name, email, generate_password_hash(pwd)[:50])
-		data = (random.randint(1,100),json['conferencename'])
+
+
+
+		sql = "INSERT INTO [Deadline] (ProposalDeadline,AbstractDeadline) VALUES(?,?)"
+		data = (ProposalDeadline,AbstractDeadline)
 		cursor.execute(sql, data)
+		conn.commit()
+
+		DeadlineID = get_last_id(conn, cursor)
+
+		sql = "INSERT INTO [Event] (Name,Interval,DeadlineID) VALUES(?,?,?)"
+		data = (Name,Interval,DeadlineID)
+		cursor.execute(sql, data)
+		conn.commit()
+		EventId = get_last_id(conn, cursor)
+
+		sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
+		data = (Username,EventId,'chair')
+		cursor.execute(sql, data)
+		conn.commit()
 
 		conn.commit()
 
