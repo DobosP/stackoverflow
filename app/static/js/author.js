@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     var username = window.sessionStorage .getItem('username');
     var loginas = window.sessionStorage .getItem('loginas');
-
     $('#userName').text(username);
 
     $.ajax({
@@ -38,7 +37,7 @@ $(document).ready(function() {
 
     $('#ConferencesJoined').on('click', function(e) {
         e.preventDefault();
-        var EventID =  Number.parseInt($( "#conferencesjoined").value)
+        var EventID =  $( "#conferencesjoined").find(":selected").val();
         window.sessionStorage.setItem('EventID', EventID);
         var url = "http://localhost:8080/author/acceptedconf";
         $(location).attr('href',url);
@@ -57,6 +56,7 @@ $(document).ready(function() {
         success: function(data) {
             console.log(data)
             let dropdown = $('#conferencestojoin');
+            console.log( window.sessionStorage .getItem('EventID'))
 
             dropdown.empty();
 
@@ -78,7 +78,7 @@ $(document).ready(function() {
 
     $('#ConferencesToJoin').on('click', function(e) {
         e.preventDefault();
-        var EventID =  Number.parseInt($( "#conferencestojoin").value)
+        var EventID =  $( "#conferencestojoin").find(":selected").val();
         window.sessionStorage.setItem('EventID', EventID);
         $.ajax({
             method: "POST",
@@ -86,7 +86,7 @@ $(document).ready(function() {
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
                 'username': username,
-                'eventid': EventID,
+                'eventid': Number.parseInt(EventID),
                 'loginas': loginas
             }),
             dataType: "json",

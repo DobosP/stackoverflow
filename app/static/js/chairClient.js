@@ -55,7 +55,7 @@ $(document).ready(function() {
 
     $('#conferenceDetails').on('click', function(e) {
         e.preventDefault();
-            var EventID =  Number.parseInt($( "#chairconferencelist").value)
+            var EventID =  $( "#chairconferencelist").find(":selected").val();
             window.sessionStorage .setItem('EventID', EventID);
             var url = "http://localhost:8080/chair/selectedconf";
             $(location).attr('href',url);
