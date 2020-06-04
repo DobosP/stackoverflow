@@ -14,7 +14,7 @@ load_dotenv(dotenv_path)
 def home_page():
 	return render_template("gui.htm")
 
-
+# chair
 @app.route("/chair")
 def chair_page():
 	return render_template("logged/chair/loggedchair.htm")
@@ -27,7 +27,10 @@ def createconf_page():
 def editconf_page():
 	return render_template("logged/chair/createpage/editpage/editpage.htm")
 
-
+#pcmember
+@app.route("/pcmember")
+def pcmember_page():
+	return render_template("logged/pc/loggedpc.htm")
 
 @app.route('/signup/page')
 def sign_up_page():
