@@ -1,14 +1,32 @@
 ﻿<!DOCTYPE html>
 <html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>jQuery AJAX Login Logout using Python Flask MySQL</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/author.js') }}" >
+		<script type="text/javascript">
+			$SCRIPT_ROOT = {
+				{
+					request.script_root | tojson | safe
+				}
+			};
+		</script>
+	</head>
+
 <body style="background-color:red">
+  	<div class="topnav" >
+  	<div class="topnav-right" float: right>
+    	<a>User Name:</a>
+   		<a id=userName></a>
+   		<a id=logOutButt href="#">LogOut</a>
+	</div>
+	</div>
 	<h2>You have successfully logged in as an author.</h2>
-	<form action="./submit_paper/submitpaper.htm">
 		<label for="conferencesjoined">Conferences joined:</label>
 		<select id="conferencesjoined" name="conferencesjoined">
-			<option value="test">Test</option>
 		</select>
-		<input type="submit" value="Submit a proposal">
-	</form>
+		<input type="button" id="ConferencesJoined" value="Submit a proposal">
 	<br>
 	<form action="./submit_paper/submitpaper.htm">
 		<label for="conferencestojoin">Conferences which you can join</label>
