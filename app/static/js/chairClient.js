@@ -19,9 +19,9 @@ $(document).ready(function() {
     });
     var isLoggedIn = localStorage.getItem('loggedin');
         
-    if(isLoggedIn != 1) {
-        $("body").hide();
-    }
+    // if(isLoggedIn != 1) {
+    //     $("body").hide();
+    // }
     var userName = localStorage.getItem('userName');
 
     $('#userName').text(userName);
