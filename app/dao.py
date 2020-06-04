@@ -82,9 +82,35 @@ def register(email, name, pwd, affiliation):
 			cursor.close()
 			conn.close()
 
+def getusers(json):
+	#get all users exept you
+	conn = None;
+	cursor = None;
+	
+	try:
+		Username = json['username']
 
+		conn, cursor = establish_db_con() 
 
+		sql = """SELECT Username FROM User
+				Where Username != ?
+				"""
+		data = (Username)
+
+		cursor.execute(sql, data)
+		row = cursor.fetchall()
+		conn.commit()
+		return row
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+			
 def getconferences(json):
+
 	conn = None;
 	cursor = None;
 	
@@ -98,6 +124,37 @@ def getconferences(json):
 				INNER JOIN Participates
 				On Event.EventID = Participates.EventID AND 
 				Participates.Username = ? AND Participates.Type = ?
+				"""
+		data = (Username,Type)
+
+		cursor.execute(sql, data)
+		row = cursor.fetchall()
+		conn.commit()
+		return row
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+def getallconferences(json):
+	conn = None;
+	cursor = None;
+	
+	try:
+		# Get all conferences where you are not participating as type
+		Username = json['username']
+		Type = json['loginas']
+
+		conn, cursor = establish_db_con() 
+
+		sql = """SELECT Event.  EventID, [Name] FROM [Event]
+				INNER JOIN Participates
+				On Event.EventID = Participates.EventID WHERE 
+				Participates.Username != ? AND Participates.Type != ?
 				"""
 		data = (Username,Type)
 
