@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-<html>
-<body>
-	<h2>You have successfully paid for the conference.</h2>
-	<form action="C:\Users\Andrei\Desktop\issshit\GUI\logged\listener\loggedlistener.htm">
-		<input type="submit" name="Go back">
-	</form>
-</body>
-</html>

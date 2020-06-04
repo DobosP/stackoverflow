@@ -1,3 +1,4 @@
 app/env
 app/__pycache__
 app/db_config.py
+env

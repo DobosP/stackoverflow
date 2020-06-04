@@ -1,6 +1,0 @@
-<!DOCTYPE html>
-<html>
-<body style="background-color:green">
-	<p>Hi</p>
-</body>
-</html>
