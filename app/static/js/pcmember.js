@@ -41,7 +41,7 @@ $(document).ready(function() {
     e.preventDefault();
         var EventID =  Number.parseInt($( "#chairconferencelist").value)
         window.sessionStorage.setItem('EventID', EventID);
-        var url = "http://localhost:8080/chair/selectedconf";
+        var url = "http://localhost:8080/pcmember/selectedconf";
         $(location).attr('href',url);
 
     });
