@@ -53,6 +53,17 @@ $(document).ready(function() {
             $(location).attr('href',url);
     
     });
+
+    $('#conferenceDetails').on('click', function(e) {
+        e.preventDefault();
+            var EventID =  Number.parseInt($( "#chairconferencelist").value)
+            localStorage.setItem('EventID', EventID);
+            var url = "http://localhost:8080/chair/selectedconf";
+            $(location).attr('href',url);
+    
+        });
+  
+
     $('#updatepage').on('click', function(e) {
         e.preventDefault();
         var conferencename = $('#conferencename').val();
