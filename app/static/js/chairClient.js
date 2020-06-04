@@ -1,8 +1,7 @@
 $(document).ready(function() {
 
-    var isLoggedIn = window.localstorage.getItem('loggedin');
-    var username = window.localstorage.getItem('username');
-    var loginas = window.localstorage.getItem('loginas');
+    var username = window.sessionStorage.getItem('username');
+    var loginas = window.sessionStorage .getItem('loginas');
 
     $('#userName').text(username);
 
@@ -39,9 +38,9 @@ $(document).ready(function() {
 
     $('#logOutButt').on('click', function(e) {
         e.preventDefault();
-            window.localstorage.setItem('loggedin', 0);
-            window.localstorage.setItem('userName', '');
-            window.localstorage.setItem('logedinas', '');
+            window.sessionStorage .setItem('loggedin', 0);
+            window.sessionStorage .setItem('userName', '');
+            window.sessionStorage .setItem('logedinas', '');
             var url = "http://localhost:8080";
             $(location).attr('href',url);
 
@@ -57,7 +56,7 @@ $(document).ready(function() {
     $('#conferenceDetails').on('click', function(e) {
         e.preventDefault();
             var EventID =  Number.parseInt($( "#chairconferencelist").value)
-            window.localstorage.setItem('EventID', EventID);
+            window.sessionStorage .setItem('EventID', EventID);
             var url = "http://localhost:8080/chair/selectedconf";
             $(location).attr('href',url);
 
