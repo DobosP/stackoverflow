@@ -21,10 +21,8 @@ $(document).ready(function() {
 				}),
 				dataType: "json",
 				success: function(data) {
-
-        			window.localstorage.setItem('loggedin', 1);
-					window.localstorage.setItem('username', username);
-					window.localstorage.setItem('loginas', loginas);
+					window.sessionStorage.setItem('username', username);
+					window.sessionStorage.setItem('loginas', loginas);
 					var url = "http://localhost:8080/" + loginas;
 					$(location).attr('href',url);
 

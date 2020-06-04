@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
-    var isLoggedIn = window.localstorage.getItem('loggedin');
-    var username = window.localstorage.getItem('username');
-    var loginas = window.localstorage.getItem('loginas');
+    var isLoggedIn = window.sessionStorage .getItem('loggedin');
+    var username = window.sessionStorage .getItem('username');
+    var loginas = window.sessionStorage .getItem('loginas');
 
     $('#userName').text(username);
 
@@ -39,9 +39,9 @@ $(document).ready(function() {
 
     $('#logOutButt').on('click', function(e) {
         e.preventDefault();
-            window.localstorage.setItem('loggedin', 0);
-            window.localstorage.setItem('userName', '');
-            window.localstorage.setItem('logedinas', '');
+            window.sessionStorage .setItem('loggedin', 0);
+            window.sessionStorage .setItem('userName', '');
+            window.sessionStorage .setItem('logedinas', '');
             var url = "http://localhost:8080";
             $(location).attr('href',url);
 
