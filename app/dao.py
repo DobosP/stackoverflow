@@ -236,10 +236,13 @@ def createconf(json):
 		conn.commit()
 		logging.warning(PcMembers)
 		for pcmember in PcMembers:
-			sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
-			data = (pcmember,EventId,'PCmember')
-			cursor.execute(sql, data)
-			conn.commit()
+			try:
+				sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
+				data = (pcmember,EventId,'PCmember')
+				cursor.execute(sql, data)
+				conn.commit()
+			except Exception as e:
+				print(e)
 
 
 		conn.commit()
@@ -264,7 +267,7 @@ def upproposal(json):
 		#Unique
 		Username = json['username']
 		EventID = json['EventID']
-
+		Autors = json['proposalauthors']
 
 		#Proposal
 		Name = json['proposalname']
@@ -296,7 +299,7 @@ def upproposal(json):
 			ProposalID = row[0]
 			AbstracID = row[1]
 			PaperID = row[2]
-
+			
 
 			sql = """UPDATE Proposal
 				SET [Name] = ?, Topic = ?
@@ -321,6 +324,16 @@ def upproposal(json):
 			data = (Title,AbstractName,Purpose,Methods,AbstracID)
 			cursor.execute(sql, data)
 			conn.commit()
+
+			for author in Autors:
+				try:
+					sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
+					data = (author,EventID,'author')
+					cursor.execute(sql, data)
+					conn.commit()
+				except Exception as e:
+					print(e)
+
 			return 
 
 		sql = "INSERT INTO [Paper] (PaperInfo) VALUES(?)"
@@ -341,7 +354,15 @@ def upproposal(json):
 		cursor.execute(sql, data)
 		conn.commit()
 
-		conn.commit()
+	
+		for author in Autors:
+			try:
+				sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
+				data = (author,EventID,'author')
+				cursor.execute(sql, data)
+				conn.commit()
+			except Exception as e:
+				print(e)
 
 	except Exception as e:
 		print(e)
