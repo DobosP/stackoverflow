@@ -139,6 +139,22 @@ def getallconferences():
 	resp.status_code = 200
 
 	return resp
+
+@app.route('/getusers', methods=['GET'])
+def getallusers():
+	get_data = {
+		"username": request.args.get('username'),
+		}
+	data = dao.getusers(get_data)
+	events = []
+	for event in data:
+		events.append({
+		"Username": event[0],
+		})
+	resp = jsonify(events)
+	resp.status_code = 200
+
+	return resp
 	
 
 # @app.route('/logout', username)

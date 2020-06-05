@@ -234,6 +234,13 @@ def createconf(json):
 		data = (Username,EventId,'chair')
 		cursor.execute(sql, data)
 		conn.commit()
+		logging.warning(PcMembers)
+		for pcmember in PcMembers:
+			sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
+			data = (pcmember,EventId,'PCmember')
+			cursor.execute(sql, data)
+			conn.commit()
+
 
 		conn.commit()
 
