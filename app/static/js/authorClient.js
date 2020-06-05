@@ -14,13 +14,14 @@ $(document).ready(function() {
 
         success: function(data) {
             console.log(data)
-            $('#proposalname').text(data['proposalname'])
-            $('#propsaltopic').text(data['propsaltopic'])
-            $('#papertext').text(data['papertext'])
-            $('#abstracttitle').text(data['abstracttitle'])
-            $('#abstractname').text(data['abstractname'])
-            $('#abstractpurpose').text(data['abstractpurpose'])
-            $('#abstractmethods').text(data['abstractmethods'])
+            data = data[0]
+            $('#proposalname').val(data['proposalname'])
+            $('#propsaltopic').val(data['propsaltopic'])
+            $('#papertext').val(data['papertext'])
+            $('#abstracttitle').val(data['abstracttitle'])
+            $('#abstractname').val(data['abstractname'])
+            $('#abstractpurpose').val(data['abstractpurpose'])
+            $('#abstractmethods').val(data['abstractmethods'])
            
         },
         statusCode: {
