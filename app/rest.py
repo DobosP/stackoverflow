@@ -66,6 +66,24 @@ def upproposal():
 		return resp
 
 
+@app.route('/getproposalinfo', methods=['GET'])
+def getproposalinfo():
+	get_data = {
+		"username": request.args.get('username'),
+		"EventID": request.args.get('EventID')
+		}
+	data = dao.getproposalinfo(get_data)
+	if data:
+		proposal = [data]
+		resp = jsonify(proposal)
+		resp.status_code = 200
+		return resp
+	else:
+		resp = jsonify({'message': 'Bad Request - no proposal found'})
+		resp.status_code = 404
+		return resp
+
+
 @app.route('/login', methods=['POST'])
 def login():
 
@@ -104,7 +122,23 @@ def getconferences():
 
 	return resp
 
+@app.route('/getallconferences', methods=['GET'])
+def getallconferences():
+	get_data = {
+		"username": request.args.get('username'),
+		"loginas":  request.args.get('loginas')
+		}
+	data = dao.getallconferences(get_data)
+	events = []
+	for event in data:
+		events.append({
+		"EventID": event[0],
+		"Name": event[1]
+		})
+	resp = jsonify(events)
+	resp.status_code = 200
 
+	return resp
 	
 
 # @app.route('/logout', username)

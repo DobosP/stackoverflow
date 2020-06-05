@@ -284,7 +284,7 @@ def upproposal(json):
 		cursor.execute(sql, data)
 		row = cursor.fetchone()
 		conn.commit()
-		if row[0] != None:
+		if row:
 			#update Event
 			ProposalID = row[0]
 			AbstracID = row[1]
@@ -335,6 +335,66 @@ def upproposal(json):
 		conn.commit()
 
 		conn.commit()
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+def getproposalinfo(json):
+	conn = None;
+	cursor = None;
+
+	try:
+		Username = json['username']
+		EventID = json['EventID']
+
+		conn, cursor = establish_db_con()
+
+		sql = """SELECT ProposalID, AbstractID, PaperID from Participates
+				Inner join Event ON Participates.EventID = Event.EventID
+				Inner join Proposal On Event.EventID = Proposal.EventID
+				Where Participates.Username = ? and Event.EventID = ?
+				AND Participates.Type = 'author'
+				"""
+
+		data = (Username,EventID)
+
+		cursor.execute(sql, data)
+		row = cursor.fetchone()
+		conn.commit()
+
+		logging.warning(row)
+		if row:
+
+			sql = """SELECT Proposal.Name, Proposal.Topic, PaperInfo, Title, Abstract.Name, Purpose, Methods from Proposal
+					Inner join Paper ON Proposal.PaperID = Paper.PaperID
+					Inner join Abstract ON Proposal.AbstractID = Abstract.AbstractID
+					Where Proposal.ProposalID = ?
+					"""
+			data = (row[0])
+
+			cursor.execute(sql,data)
+			row = cursor.fetchone()
+			conn.commit()
+
+			logging.warning(row)
+			data={
+				'proposalname': row[0],
+				'propsaltopic': row[1],
+				'papertext': row[2],
+				'abstracttitle': row[3],
+				'abstractname': row[4],
+				'abstractpurpose': row[5],
+				'abstractmethods': row[6]
+			}
+
+			return data
+		else:
+			return None
 
 	except Exception as e:
 		print(e)
