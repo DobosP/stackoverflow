@@ -155,7 +155,23 @@ def getallusers():
 	resp.status_code = 200
 
 	return resp
-	
+
+@app.route('/getallproposals', methods=['GET'])
+def getallproposals():
+	get_data = {
+		"username": request.args.get('username'),
+		}
+	data = dao.getallproposals(get_data)
+	events = []
+	for event in data:
+		events.append({
+		"ProposalID": event[0],
+		"Name": event[1]
+		})
+	resp = jsonify(events)
+	resp.status_code = 200
+
+	return resp
 
 # @app.route('/logout', username)
 # def logout():

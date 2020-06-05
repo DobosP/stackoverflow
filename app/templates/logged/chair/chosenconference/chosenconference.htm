@@ -1,6 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery AJAX Login Logout using Python Flask MySQL</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/chair_proposal.js') }}" >
+	<script type="text/javascript">
+        $SCRIPT_ROOT = {
+            {
+                request.script_root | tojson | safe
+            }
+        };
+    </script>
+</head>
 <body>
+ 	<div class="topnav" >
+  	<div class="topnav-right" float: right>
+    	<a>User Name:</a>
+   		<a id=userName></a>
+   		<a id=logOutButt href="#">LogOut</a>
+	</div>
+	</div>
 	<h2>Below are details concerning your selected conference, and proposals submitted to it.</h2>
 	<label>Name: </label>
 	<label id="chairconferencename">default</label>
@@ -12,13 +32,10 @@
 	<label id="chairconferencespeakers">default</label>
 	<br>
 	<br>
-	<form action="./chosenproposal/chosenproposal.htm">
 		<label for="chairproposals">List of proposals: </label>
 		<select id="chairproposallist" name="chairproposallist">
-			<option value="test">Test</option>
 		</select>
-		<input type="submit" value="See proposal options">
-	</form>
+		<input type="button" id="ProposalDetails" value="See proposal details">
 	<br>
 	<form action="../createpage/editpage/editpage.htm">
 		<input type="submit" value="Edit conference page">
