@@ -438,14 +438,15 @@ def getallproposals(json):
 	try:
 		# Get all proposals where you are not participating as author
 		Username = json['username']
+		eventID = json['EventID']
 
 		conn, cursor = establish_db_con()
 
 		sql = """SELECT ProposalID, [Name] FROM Proposal
-				WHERE Proposal.EventId NOT IN (SELECT EventID
+				WHERE Proposal.EventId = ? AND Proposal.EventId NOT IN (SELECT EventID
 				FROM Participates WHERE Username = ? AND Type = ?)"""
 
-		data = (Username, "author")
+		data = (eventID,Username, "author")
 
 		cursor.execute(sql, data)
 		row = cursor.fetchall()
