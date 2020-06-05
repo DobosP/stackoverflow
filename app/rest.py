@@ -104,33 +104,7 @@ def getconferences():
 
 	return resp
 
-@app.route('/getallconferences', methods=['GET'])
-def getallconferences():
-	get_data = {
-		"username": request.args.get('username'),
-		"loginas":  request.args.get('loginas')
-		}
-	data = dao.getallconferences(get_data)
-	events = []
-	for event in data:
-		events.append({
-		"EventID": event[0],
-		"Name": event[1]
-		})
-	resp = jsonify(events)
-	resp.status_code = 200
 
-	return resp
-
-
-@app.route('/addparticipant', methods=['POST'])
-def addparticipant():
-	_json = request.json
-	warning(_json)
-	dao.addparticipant(_json)
-	resp = jsonify({'message': 'Participant added successfully'})
-	resp.status_code = 201
-	return resp
 	
 
 # @app.route('/logout', username)
