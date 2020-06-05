@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>jQuery AJAX Login Logout using Python Flask MySQL</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="{{ url_for('static', filename='js/chairClient.js') }}" >
+	<script type="text/javascript" src="{{ url_for('static', filename='js/chair_edit_conf.js') }}" >
 	<script type="text/javascript">
 		$SCRIPT_ROOT = {
 			{
@@ -26,8 +26,9 @@
 		<input type="text" id="conferencecall" name="conferencecall"><br><br>
 		<label for="conferencedeadlines">Deadlines: </label>
 		<input type="text" id="conferencedeadlines" name="conferencedeadlines"><br><br>
-		<label for="conferencepc">PC members: </label>
-		<input type="text" id="conferencepc" name="conferencepc"><br><br>
+		<label  for="conferencepc">PC members: </label>
+		<select id="conferencepc" name = "conferencepc"></select><br><br>
+
 		<label for="conferencesections">Conference sections: </label>
 		<input type="text" id="conferencesections" name="conferencesections"><br><br>
 		<label for="conferenceprogram">Conference program: </label>

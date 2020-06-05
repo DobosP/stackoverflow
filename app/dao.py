@@ -92,7 +92,7 @@ def getusers(json):
 
 		conn, cursor = establish_db_con() 
 
-		sql = """SELECT Username FROM User
+		sql = """SELECT Username FROM [User]
 				Where Username != ?
 				"""
 		data = (Username)
