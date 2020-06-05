@@ -49,6 +49,23 @@ def createconf():
 		resp.status_code = 400
 		return resp
 
+@app.route('/upproposal', methods=['POST'])
+def upproposal():
+	_json = request.json
+	if _json['proposalname']:
+	
+	
+		dao.upproposal(_json)
+		
+		resp = jsonify({'message' : 'User registered successfully'})
+		resp.status_code = 201
+		return resp
+	else:
+		resp = jsonify({'message' : 'Bad Request - invalid parameters'})
+		resp.status_code = 400
+		return resp
+
+
 @app.route('/login', methods=['POST'])
 def login():
 

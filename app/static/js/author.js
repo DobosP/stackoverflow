@@ -39,6 +39,7 @@ $(document).ready(function() {
         e.preventDefault();
         var EventID =  $( "#conferencesjoined").find(":selected").val();
         window.sessionStorage.setItem('EventID', EventID);
+        console.log(EventID)
         var url = "http://localhost:8080/author/acceptedconf";
         $(location).attr('href',url);
 

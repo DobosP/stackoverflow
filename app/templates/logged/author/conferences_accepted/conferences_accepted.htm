@@ -1,58 +1,58 @@
 ﻿<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery AJAX Login Logout using Python Flask MySQL</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/authorClient.js') }}" >
+	<script type="text/javascript">
+        $SCRIPT_ROOT = {
+            {
+                request.script_root | tojson | safe
+            }
+        };
+    </script>
+</head>
 <html>
 <body>
 	<h2>Below are some details of your proposal, as well as options to edit it.</h2>
-	<label>Title:</label>
-	<label id="proposaltitle">default</label>
-	<br>
-	<label>Topic:</label>
-	<label id="proposaltopic">default</label>
-	<br>
-	<label>Authors:</label>
-	<label id="proposalauthors">default</label>
-	<br>
+	<p>Form to update meta-information for the Proposal</p>
+	<label for="proposalname">Name: </label>
+	<input type="text" id="proposalname" name="proposalname">
+	<label for="propsaltopic">Topics: </label>
+	<input type="text" id="propsaltopic" name="updatepapertopic">
+	<label for="proposalauthors">Authors: </label>
+	<input type="text" id="proposalauthors" name="updatepaperauthors">
+	
+
 	<p>Form to update meta-information for a paper</p>
 	<form>
-		<label for="updatepapertitle">New name: </label>
-		<input type="text" id="updatepapername" name="updatepapername">
-		<br>
-		<label for="updatepapertopic">New topics: </label>
-		<input type="text" id="updatepapertopic" name="updatepapertopic">
-		<br>
-		<label for="updatepaperauthors">New authors: </label>
-		<input type="text" id="updatepaperauthors" name="updatepaperauthors">
-		<br>
-		<button id="updatepaper">Update paper</button>
+	<label for="papertext">Name: </label>
+	<input type="text" id="papertext" name="papertext">
+	
 	</form>
 	<br>
 	<p>Form to update meta-information for an abstract</p>
 	<form>
-		<label for="updatepapertitle">New title: </label>
-		<input type="text" id="updateabstracttitle" name="updateabstracttitle">
+		<label for="abstracttitle">Title: </label>
+		<input type="text" id="abstracttitle" name="abstracttitle">
 		<br>
-		<label for="updatepapertopic">New name: </label>
-		<input type="text" id="updateabstractname" name="updateabstractname">
+		<label for="abstractname">Name: </label>
+		<input type="text" id="abstractname" name="abstractname">
 		<br>
-		<label for="updatepaperauthors">New purpose: </label>
-		<input type="text" id="updateabstractpurpose" name="updateabstractpurpose">
+		<label for="abstractpurpose">Purpose: </label>
+		<input type="text" id="abstractpurpose" name="abstractpurpose">
 		<br>
-		<label for="updatepaperauthors">New methods: </label>
-		<input type="text" id="updateabstractmethods" name="updateabstractmethods">
+		<label for="abstractmethods">Methods: </label>
+		<input type="text" id="abstractmethods" name="abstractmethods">
 		<br>
-		<button id="updateabstract">Update abstract</button>
 	</form>
+	<br>
+	<button id="updateproposal">Update</button>
 	<br>
 	<p>Recommendations from reviewers</p>
 	<ul id="listofrecommendations">
 		<li>Test</li>
 	</ul>
 	<br>
-	<button id="addPDF">Upload a PDF</button>
-	<button id="addPPT">Upload a PPT</button>
-	<br>
-	<br>
-	<form action="../loggedauthor.htm">
-		<input type="submit" value="Go back">
-	</form>
 </body>
 </html>

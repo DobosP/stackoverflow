@@ -108,7 +108,7 @@ def getusers(json):
 		if cursor and conn:
 			cursor.close()
 			conn.close()
-			
+
 def getconferences(json):
 
 	conn = None;
@@ -232,6 +232,105 @@ def createconf(json):
 
 		sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
 		data = (Username,EventId,'chair')
+		cursor.execute(sql, data)
+		conn.commit()
+
+		conn.commit()
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+
+
+def upproposal(json):
+	conn = None;
+	cursor = None;
+	
+	try:
+
+		#Unique
+		Username = json['username']
+		EventID = json['EventID']
+
+
+		#Proposal
+		Name = json['proposalname']
+		Topic = json['propsaltopic']
+		#Paper
+		PaperInfo = json['papertext']
+		#Abstract
+		Title = json['abstracttitle']
+		AbstractName = json['abstractname']
+		Purpose = json['abstractpurpose']
+		Methods = json['abstractmethods']
+
+		conn, cursor = establish_db_con() 
+
+		
+		sql = """SELECT ProposalID, AbstractID, PaperID from Participates
+				Inner join Event ON Participates.EventID = Event.EventID
+				Inner join Proposal On Event.EventID = Proposal.EventID
+				Where Participates.Username = ? and Event.EventID = ?
+				AND Participates.Type = 'author'
+				"""
+		data = (Username,EventID)
+
+		cursor.execute(sql, data)
+		row = cursor.fetchone()
+		conn.commit()
+		if row[0] != None:
+			#update Event
+			ProposalID = row[0]
+			AbstracID = row[1]
+			PaperID = row[2]
+
+
+			sql = """UPDATE Proposal
+				SET [Name] = ?, Topic = ?
+				WHERE ProposalId = ?;
+				"""
+			data = (Name,Topic,ProposalID)
+			cursor.execute(sql, data)
+			conn.commit()
+
+			sql = """UPDATE Paper
+				SET PaperInfo = ?
+				WHERE PaperID = ?;
+				"""
+			data = (PaperInfo,PaperID)
+			cursor.execute(sql, data)
+			conn.commit()
+
+			sql = """UPDATE Abstract
+				SET Title = ?, [Name] = ?, Purpose = ?, Methods = ?
+				WHERE AbstractID = ?;
+				"""
+			data = (Title,AbstractName,Purpose,Methods,AbstracID)
+			cursor.execute(sql, data)
+			conn.commit()
+			return 
+
+		sql = "INSERT INTO [Paper] (PaperInfo) VALUES(?)"
+		data = (PaperInfo)
+		cursor.execute(sql, data)
+		conn.commit()
+
+		PaperID = get_last_id(conn, cursor)
+
+		sql = "INSERT INTO [Abstract] (Title,[Name],Purpose,Methods) VALUES(?,?,?,?)"
+		data = (Title,AbstractName,Purpose,Methods)
+		cursor.execute(sql, data)
+		conn.commit()
+		AbstracID = get_last_id(conn, cursor)
+
+		sql = "INSERT INTO [Proposal] (PaperID,EventID,AbstractID,[Name],Topic) VALUES(?,?,?,?,?)"
+		data = (PaperID,EventID,AbstracID,Name,Topic)
 		cursor.execute(sql, data)
 		conn.commit()
 
