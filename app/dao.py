@@ -151,11 +151,10 @@ def getallconferences(json):
 
 		conn, cursor = establish_db_con() 
 
-		sql = """SELECT Event.  EventID, [Name] FROM [Event]
-				INNER JOIN Participates
-				On Event.EventID = Participates.EventID WHERE 
-				Participates.Username != ? AND Participates.Type != ?
-				"""
+		sql = """SELECT EventID, [Name] FROM [Event]
+				WHERE EventID NOT IN (SELECT EventID
+				FROM Participates WHERE Username = ? AND Type = ?)"""
+
 		data = (Username,Type)
 
 		cursor.execute(sql, data)
@@ -163,6 +162,32 @@ def getallconferences(json):
 		conn.commit()
 		return row
 		
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+def addparticipant(json):
+	conn = None;
+	cursor = None;
+
+	try:
+		Username = json['username']
+		EventID = json['eventid']
+		Type = json['loginas']
+
+		conn, cursor = establish_db_con()
+
+		sql = "INSERT INTO Participates (Username, EventID, Type) VALUES(?, ?, ?)"
+		data = (Username, EventID, Type)
+		cursor.execute(sql, data)
+
+		conn.commit()
 
 	except Exception as e:
 		print(e)

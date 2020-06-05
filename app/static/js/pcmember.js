@@ -39,7 +39,7 @@ $(document).ready(function() {
 
     $('#conferenceDetails').on('click', function(e) {
     e.preventDefault();
-        var EventID =  Number.parseInt($( "#pclistconferences").value)
+        var EventID =  $( "#pclistconferences").find(":selected").val();
         window.sessionStorage.setItem('EventID', EventID);
         var url = "http://localhost:8080/pcmember/selectedconf";
         $(location).attr('href',url);
