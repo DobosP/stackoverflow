@@ -160,6 +160,7 @@ def getallusers():
 def getallproposals():
 	get_data = {
 		"username": request.args.get('username'),
+		"EventID": request.args.get("EventID")
 		}
 	data = dao.getallproposals(get_data)
 	events = []
@@ -174,11 +175,12 @@ def getallproposals():
 	return resp
 
 @app.route('/addpcmember', methods=['POST'])
-def addpcmember(json):
-	data = dao.addpcmember(json)
-	resp = jsonify(data)
-	resp.status_code = 200
+def addpcmember():
+	_json = request.json
+	dao.addpcmember(_json)
 
+	resp = jsonify({'message': 'PCmember added successfully'})
+	resp.status_code = 201
 	return resp
 
 @app.route('/getallpcmembers', methods=['GET'])
@@ -197,6 +199,16 @@ def getallpcmemberss():
 	resp = jsonify(events)
 	resp.status_code = 200
 
+	return resp
+
+
+@app.route('/addparticipant', methods=['POST'])
+def addparticipant():
+	_json = request.json
+	warning(_json)
+	dao.addparticipant(_json)
+	resp = jsonify({'message': 'Participant added successfully'})
+	resp.status_code = 201
 	return resp
 
 # @app.route('/logout', username)

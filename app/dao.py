@@ -443,8 +443,10 @@ def getallproposals(json):
 		conn, cursor = establish_db_con()
 
 		sql = """SELECT ProposalID, [Name] FROM Proposal
-				WHERE Proposal.EventId = ? AND Proposal.EventId NOT IN (SELECT EventID
-				FROM Participates WHERE Username = ? AND Type = ?)"""
+				WHERE Proposal.EventId = ? AND Proposal.ProposalID NOT IN (SELECT Proposal.ProposalID
+				FROM Participates inner join Event on Event.EventID = Participates.EventID
+				inner join Proposal on Event.EventID = Proposal.EventId
+				WHERE Participates.Username = ? AND Type = ?)"""
 
 		data = (eventID,Username, "author")
 
@@ -468,8 +470,8 @@ def addpcmember(json):
 
 	try:
 		Username = json['username']
-		ProposalID = json['proposalid']
-		Analyze = json['analyze']
+		ProposalID = json['ProposalID']
+		Analyze = json['Analyze']
 
 		conn, cursor = establish_db_con()
 

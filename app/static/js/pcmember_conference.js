@@ -11,6 +11,7 @@ $(document).ready(function() {
 
         data: {
             'username':username,
+            'EventID':EventID
         },
 
         success: function(data) {
@@ -19,10 +20,10 @@ $(document).ready(function() {
 
             dropdown.empty();
 
-            dropdown.append('<option selected="true" disabled>Choose Conference</option>');
+            dropdown.append('<option selected="true" disabled>Choose Proposal</option>');
             dropdown.prop('selectedIndex', 0);
             $.each(data, function (key, entry) {
-            dropdown.append($('<option></option>').attr('value', entry.EventID).text(entry.Name));
+            dropdown.append($('<option></option>').attr('value', entry.ProposalID).text(entry.Name));
            });
         },
         statusCode: {
@@ -71,7 +72,7 @@ function analyze(username,ProposalID,Analyze){
    
     $.ajax({
         method: "POST",
-        url: '/adpcmember',
+        url: '/addpcmember',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({
             'username':username,
