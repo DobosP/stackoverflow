@@ -1,5 +1,18 @@
 ﻿<!DOCTYPE html>
 <html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>jQuery AJAX Login Logout using Python Flask MySQL</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/pcmember_conference.js') }}" >
+		<script type="text/javascript">
+			$SCRIPT_ROOT = {
+				{
+					request.script_root | tojson | safe
+				}
+			};
+		</script>
+	</head>
 <body style="background-color:grey">
 	<h2>Below are options for your current conference.</h2>
 	<p>Conference details</p>
@@ -12,14 +25,21 @@
 	<label>Speakers: </label>
 	<label id="pcconferencespeakers">default</label>
 	<br>
-	<br>
-	<form action="./proposalselected/proposalselected.htm">
-		<label for="pclistproposals">List of proposals</label>
-		<select id="pclistproposals" name="pclistproposals">
-			<option value="test">Test</option>
+		<div class="btn-group" >
+		<label for="pclistproposals_bind">List of proposals for biding</label>
+
+		<select id="pclistproposals_bind" name="pclistproposals_bind">
 		</select>
-		<input type="submit" value="View proposal">
-	</form>
+		<button id="could_eval">Could Evaluate</button>
+		<button id="plesed_eval">Plesed Evaluate</button>
+		<button id="refsed_eval">Refuse Evaluate</button>
+	  </div>	
+	<br>
+	<label for="pclistproposals">List of proposals</label>
+	<select id="pclistproposals" name="pclistproposals">
+		<option value="test">Test</option>
+	</select>
+	<input type="submit" value="View proposal">
 	<br>
 	<form action="../loggedpc.htm">
 		<input type="submit" value="Go back">
