@@ -35,6 +35,7 @@ def signup():
 def createconf():
 	_json = request.json
 
+	warning(_json)
 	
 	if _json['conferencename']:
 	
@@ -82,6 +83,24 @@ def getproposalinfo():
 		resp = jsonify({'message': 'Bad Request - no proposal found'})
 		resp.status_code = 404
 		return resp
+
+
+@app.route('/geteventinfo', methods=['GET'])
+def getconference():
+	get_data = {
+		"EventID": request.args.get('EventID')
+		}
+	data = dao.getconference(get_data)
+	if data:
+		proposal = [data]
+		resp = jsonify(proposal)
+		resp.status_code = 200
+		return resp
+	else:
+		resp = jsonify({'message': 'Bad Request - no proposal found'})
+		resp.status_code = 404
+		return resp
+
 
 
 @app.route('/login', methods=['POST'])

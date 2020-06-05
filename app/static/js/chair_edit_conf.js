@@ -1,7 +1,36 @@
 $(document).ready(function(){
 
     var username = window.sessionStorage.getItem('username');
-    var loginas = window.sessionStorage .getItem('loginas');
+    var EventID = window.sessionStorage .getItem('EventID');
+    console.log(EventID)
+    $.ajax({
+        method: "GET",
+        url: '/geteventinfo',
+
+        data: {
+            'EventID':EventID
+        },
+
+        success: function(data) {
+            console.log(data)
+            data = data[0]
+            $('#conferencename').val(data['conferencename'])
+            $('#conferencetime').val(data['conferencetime'])
+            $('#conferencecall').val(data['conferencecall'])
+            $('#conferencedeadlines').val(data['conferencedeadlines'])
+        
+    
+        },
+        statusCode: {
+            404: function(mesage) {
+                console.log(mesage);
+            }
+        },
+        error: function(err) {
+            console.log(err);
+        }
+    });
+
 
     $.ajax({
         method: "GET",
@@ -22,8 +51,6 @@ $(document).ready(function(){
             $.each(data, function (key, entry) {
             dropdown.append($('<option></option>').attr('value', entry.Username).text(entry.Username));
 
-
-
            });
         }
     })
@@ -36,8 +63,7 @@ $(document).ready(function(){
         var conferencecall = $('#conferencecall').val();
         var conferencedeadlines = $('#conferencedeadlines').val();
         var conferencepc = $('#conferencepc').val();
-        var conferencesections = $('#conferencesections').val();
-        var conferenceprogram = $('#conferenceprogram').val();
+
 
 
 		if(conferencename != "" || conferencetime != "" ) {
@@ -47,13 +73,13 @@ $(document).ready(function(){
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
                     'chair':username,
+                    'EventID':EventID,
 					'conferencename': conferencename,
 					'conferencetime': conferencetime,
                     'conferencecall': conferencecall,
                     'conferencedeadlines': conferencedeadlines,
 					'conferencepc': conferencepc,
-                    'conferencesections': conferencesections,
-                    'conferenceprogram': conferenceprogram
+
 
 				}),
 				dataType: "json",

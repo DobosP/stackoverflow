@@ -209,11 +209,39 @@ def createconf(json):
 		Name = json['conferencename']
 		Interval = json['conferencetime']
 		PcMembers = json['conferencepc']
-		Section = json['conferencesections']
 		#username
 		Username = json['chair']
-
+		#EventId
+		EventId = json['EventID']
 		conn, cursor = establish_db_con() 
+
+
+		if EventId:
+
+			sql = """SELECT DeadlineID FROM [Event]
+			WHERE EventID= ? """
+			
+			data = (EventId)
+
+
+
+			sql = "UPDATE [Event] set  [Name] = ?, Interval = ? where EventID = ?"
+			data = (Name,Interval,EventId)
+			cursor.execute(sql, data)
+			conn.commit()
+
+			for pcmember in PcMembers:
+				try:
+					sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
+					data = (pcmember,EventId,'PCmember')
+					cursor.execute(sql, data)
+					conn.commit()
+				except Exception as e:
+					print(e)
+
+
+			conn.commit()
+			return
 
 
 
@@ -234,7 +262,6 @@ def createconf(json):
 		data = (Username,EventId,'chair')
 		cursor.execute(sql, data)
 		conn.commit()
-		logging.warning(PcMembers)
 		for pcmember in PcMembers:
 			try:
 				sql = "INSERT INTO [Participates] (Username,EventId,Type) VALUES(?,?,?)"
@@ -254,8 +281,6 @@ def createconf(json):
 		if cursor and conn:
 			cursor.close()
 			conn.close()
-
-
 
 
 def upproposal(json):
@@ -395,7 +420,6 @@ def getproposalinfo(json):
 		row = cursor.fetchone()
 		conn.commit()
 
-		logging.warning(row)
 		if row:
 
 			sql = """SELECT Proposal.Name, Proposal.Topic, PaperInfo, Title, Abstract.Name, Purpose, Methods from Proposal
@@ -509,6 +533,55 @@ def getallpcmembers(json):
 		row = cursor.fetchall()
 		conn.commit()
 		return row
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+def getconference(json):
+	conn = None
+	cursor = None
+
+	try:
+		EventID = json['EventID']
+
+		sql = "Select * from Event Where EventID = ?"
+		data=(EventID)
+		conn, cursor = establish_db_con()
+		cursor.execute(sql,data)
+		row = cursor.fetchone()
+		conn.commit()
+
+		if row:
+
+			sql = """SELECT [Name], Interval, ProposalDeadline,AbstractDeadline from Event
+					Inner join Deadline ON Deadline.DeadlineID = Event.DeadlineID
+					WHERE EventId = ?
+					"""
+
+			data = (EventID)
+
+			cursor.execute(sql, data)
+			row = cursor.fetchone()
+			conn.commit()
+
+			
+			data={
+				'conferencename': row[0],
+				'conferencetime': row[1],
+				'conferencecall': row[2],
+				'conferencedeadlines': row[3]
+			}
+
+			return data
+		else:
+			return None
+
+
 	except Exception as e:
 		print(e)
 

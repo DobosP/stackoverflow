@@ -19,7 +19,7 @@ $(document).ready(function() {
 
             dropdown.empty();
 
-            dropdown.append('<option selected="true" disabled>Choose Conference</option>');
+            dropdown.append('<option selected="true" disabled>Choose Proposal</option>');
             dropdown.prop('selectedIndex', 0);
             $.each(data, function (key, entry) {
             dropdown.append($('<option></option>').attr('value', entry.EventID).text(entry.Name));
@@ -53,4 +53,11 @@ $(document).ready(function() {
         $(location).attr('href',url);
 
     });
+
+    $('#editconference').on('click', function(e) {
+        e.preventDefault();
+            var url = "http://localhost:8080/chair/editconf";
+            $(location).attr('href',url);
+    
+        });
 });
