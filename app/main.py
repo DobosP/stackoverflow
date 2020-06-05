@@ -31,6 +31,10 @@ def editconf_page():
 def selectedconf_page():
 	return render_template("logged/chair/chosenconference/chosenconference.htm")
 
+@app.route("/chair/selectedprop")
+def selectedprop_page():
+	return render_template("logged/chair/chosenconference/chosenproposal/chosenproposal.htm")
+
 #pcmember
 @app.route("/pcmember")
 def pcmember_page():

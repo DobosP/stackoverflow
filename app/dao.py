@@ -387,8 +387,6 @@ def getproposalinfo(json):
 			cursor.execute(sql,data)
 			row = cursor.fetchone()
 			conn.commit()
-
-			logging.warning(row)
 			data={
 				'proposalname': row[0],
 				'propsaltopic': row[1],
@@ -402,6 +400,37 @@ def getproposalinfo(json):
 			return data
 		else:
 			return None
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+def getallproposals(json):
+	conn = None;
+	cursor = None;
+
+	try:
+		# Get all proposals where you are not participating as author
+		Username = json['username']
+
+		conn, cursor = establish_db_con()
+
+		sql = """SELECT ProposalID, [Name] FROM Proposal
+				WHERE Proposal.EventId NOT IN (SELECT EventID
+				FROM Participates WHERE Username = ? AND Type = ?)"""
+
+		data = (Username, "author")
+
+		cursor.execute(sql, data)
+		row = cursor.fetchall()
+		conn.commit()
+		return row
+
 
 	except Exception as e:
 		print(e)
