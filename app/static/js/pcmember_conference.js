@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var username = window.sessionStorage.getItem('username');
-    var loginas = window.sessionStorage .getItem('loginas');
+    var EventID = window.sessionStorage .getItem('EventID');
 
     $('#userName').text(username);
 
@@ -44,13 +44,50 @@ $(document).ready(function() {
 
     });
 
-   $('#logOutButt').on('click', function(e) {
+   $('#could_eval').on('click', function(e) {
     e.preventDefault();
-        window.sessionStorage .setItem('loggedin', 0);
-        window.sessionStorage .setItem('userName', '');
-        window.sessionStorage .setItem('logedinas', '');
-        var url = "http://localhost:8080";
-        $(location).attr('href',url);
+        var ProposalID =  $( "#pclistproposals_bind").find(":selected").val();
+        analyze(username,ProposalID,"could_eval");
 
     });
+    $('#pleased_eval').on('click', function(e) {
+        e.preventDefault();
+            var ProposalID =  $( "#pclistproposals_bind").find(":selected").val();
+            analyze(username,ProposalID,"pleased_eval");
+    
+        });
+    $('#refuse_eval').on('click', function(e) {
+        e.preventDefault();
+            var ProposalID =  $( "#pclistproposals_bind").find(":selected").val();
+            analyze(username,ProposalID,"refuse_eval");
+    
+    });
+            
+   
 });
+
+
+function analyze(username,ProposalID,Analyze){
+   
+    $.ajax({
+        method: "POST",
+        url: '/adpcmember',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify({
+            'username':username,
+            'ProposalID': ProposalID,
+            'Analyze': Analyze
+
+        }),
+        dataType: "json",
+        success: function(data) {
+            $('#msg').html('<span style="color: green;">Proposal analyzed!</span>');
+
+
+        },
+        error: function(err) {
+            console.log(err);
+        }
+    });
+
+}

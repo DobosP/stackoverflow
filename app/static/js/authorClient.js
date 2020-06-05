@@ -34,8 +34,6 @@ $(document).ready(function() {
         }
     });
 
-    var username = window.sessionStorage.getItem('username');
-    var loginas = window.sessionStorage .getItem('loginas');
 
     $.ajax({
         method: "GET",
