@@ -173,6 +173,32 @@ def getallproposals():
 
 	return resp
 
+@app.route('/addpcmember', methods=['POST'])
+def addpcmember(json):
+	data = dao.addpcmember(json)
+	resp = jsonify(data)
+	resp.status_code = 200
+
+	return resp
+
+@app.route('/getallpcmembers', methods=['GET'])
+def getallpcmemberss():
+	get_data = {
+		"event": request.args.get('eventid'),
+		}
+	data = dao.getallproposals(get_data)
+	pcmembers = []
+	for pcmember in data:
+		pcmember.append({
+		"Username": pcmembers[0],
+		"ProposalID": pcmembers[1],
+		"Analyze": pcmembers[2]
+		})
+	resp = jsonify(events)
+	resp.status_code = 200
+
+	return resp
+
 # @app.route('/logout', username)
 # def logout():
 # 	_json = request.json

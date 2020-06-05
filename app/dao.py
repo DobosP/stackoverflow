@@ -460,3 +460,56 @@ def getallproposals(json):
 		if cursor and conn:
 			cursor.close()
 			conn.close()
+
+def addpcmember(json):
+	conn = None;
+	cursor = None;
+
+	try:
+		Username = json['username']
+		ProposalID = json['proposalid']
+		Analyze = json['analyze']
+
+		conn, cursor = establish_db_con()
+
+		sql = "INSERT INTO PCmember (Username, ProposalID, Analyze) VALUES(?, ?, ?)"
+		data = (Username, ProposalID, Analyze)
+		cursor.execute(sql, data)
+
+		conn.commit()
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
+
+def getallpcmembers(json):
+	# get all users exept you
+	conn = None;
+	cursor = None;
+
+	try:
+		eventid = json['eventid']
+
+		conn, cursor = establish_db_con()
+
+		sql = """SELECT Username, ProposalID, Analyze FROM PCmember
+				Where Username IN (SELECT Username From Participates
+				where EventID = ?"""
+
+		data = eventid
+		cursor.execute(sql,data)
+		row = cursor.fetchall()
+		conn.commit()
+		return row
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
